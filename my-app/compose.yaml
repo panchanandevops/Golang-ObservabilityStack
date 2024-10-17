@@ -1,0 +1,11 @@
+
+services:
+  backend:
+    container_name: sample-backend-monitoring
+    image: panchanandevops/sample-backend-go-app:v1.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8080
+    
