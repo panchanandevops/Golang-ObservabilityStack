@@ -17,7 +17,7 @@ spec:
       containers:
         - name: my-app
           imagePullPolicy: Always
-          image: panchanandevops/sample-backend-go-app:v1.0.0
+          image: panchanandevops/sample-backend-go-app:v0.0.5
           ports:
             - name: http
               containerPort: 8080
