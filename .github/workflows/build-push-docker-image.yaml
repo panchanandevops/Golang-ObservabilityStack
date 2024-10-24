@@ -50,23 +50,6 @@ jobs:
           cache-from: type=registry,ref=panchanandevops/sample-backend-go-app:cache # Pull cache from the registry
           cache-to: type=registry,ref=panchanandevops/sample-backend-go-app:cache,mode=max # Push cache to the registry
 
-      - name: Run Trivy for HIGH, CRITICAL CVEs and report
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: "${{ steps.meta.outputs.tags }}"
-          exit-code: 0 # Do not fail the workflow on vulnerabilities
-          ignore-unfixed: true
-          vuln-type: "os,library"
-          severity: "HIGH,CRITICAL"
-          format: "sarif"
-          output: "trivy-results.sarif"
-
-      - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v3
-        if: always()
-        with:
-          sarif_file: "trivy-results.sarif"
-
       - name: Set Git user identity
         run: |
           git config --global user.email "panchanandevops@gmail.com"
@@ -85,8 +68,8 @@ jobs:
 
       - name: Commit changes
         run: |
-          git add Deploy/1-deployment.yaml  trivy-results.sarif 
-          git commit -m "Update tag in Deployment image tag and add Trivy scan results"
+          git add Deploy/1-deployment.yaml 
+          git commit -m "Update tag in Deployment image tag "
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
